@@ -3,7 +3,7 @@
 <div align="center">
 
 ![reNgine-ng](https://img.shields.io/badge/reNgine--ng-v3.0.0-blue?style=for-the-badge)
-![Patch](https://img.shields.io/badge/Patch-v1.4.0-green?style=for-the-badge)
+![Patch](https://img.shields.io/badge/Patch-v1.5.0-green?style=for-the-badge)
 ![Nuclei Templates](https://img.shields.io/badge/Nuclei_Templates-v10.4.5-orange?style=for-the-badge)
 ![License](https://img.shields.io/badge/License-MIT-yellow?style=for-the-badge)
 ![Status](https://img.shields.io/badge/Status-Production-brightgreen?style=for-the-badge)
@@ -68,6 +68,15 @@ Patch ini memperbaiki berbagai masalah visual pada **reNgine-ng v3.0.0** setelah
 | Tombol hamburger background hitam solid | Theme CSS target class lama `.navbar-toggle`, bukan Bootstrap 5 `.navbar-toggler` | ✅ Fixed |
 | Garis hamburger tidak terlihat | `.lines span` tidak di-style untuk selector baru | ✅ Fixed |
 | Tidak ada animasi buka/tutup | `aria-expanded` state tidak di-handle | ✅ Fixed |
+
+### Patch v1.5.0 — Nuclei Patterns "Invalid Path"
+
+| Masalah | Penyebab | Status |
+|---------|----------|--------|
+| Settings → Nuclei menampilkan "Error! Invalid Path" | `tool.html` line 105: `{{ file.3 }}` salah index — mengirim nama direktori bukan filename ke API | ✅ Fixed |
+| Template buttons tidak bisa diklik | `load_nuclei_template('nuclei-templates')` path tidak ada | ✅ Fixed |
+
+> **Root cause**: Path `/home/rengine/nuclei-templates/ssrf_nagli.yaml` dipecah dengan `.split('/')` menghasilkan 5 bagian (index 0–4). `file.3` = `"nuclei-templates"` (salah), `file.4` = `"ssrf_nagli.yaml"` (benar).
 
 ---
 
@@ -475,6 +484,27 @@ curl -sk https://localhost/staticfiles/custom/custom.css | grep -c "navbar-toggl
 ---
 
 ## 📝 Changelog Lengkap
+
+### v1.5.0 — 2026-07-05 — Fix Nuclei Patterns "Invalid Path"
+**File diubah:** `scanEngine/templates/scanEngine/settings/tool.html`
+
+**Perubahan:**
+```html
+<!-- SEBELUM (broken) — line 105 -->
+<span onclick="load_nuclei_template('{{file.3}}')">{{file.3}}</span>
+
+<!-- SESUDAH (fixed) -->
+<span onclick="load_nuclei_template('{{file.4}}')">{{file.4}}</span>
+```
+
+**Penjelasan:** Django split path `/home/rengine/nuclei-templates/file.yaml` menghasilkan index 0–4. `file.3` = nama direktori `"nuclei-templates"` (salah). `file.4` = nama file `"ssrf_nagli.yaml"` (benar).
+
+---
+
+### v1.4.0 — 2026-07-05 — Nuclei Templates Update v10.4.5
+**Tindakan:** Update nuclei-templates dari v10.3.8 → v10.4.5 (+86 template baru, total 22.153 file)
+
+---
 
 ### v1.3.0 — 2026-07-05 — Hamburger Menu Fix
 **File diubah:** `web/static/custom/custom.css`

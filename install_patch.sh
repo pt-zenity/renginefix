@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 # =============================================================================
 # install_patch.sh — reNgine-ng Custom Dark Theme Patch Installer
-# Version: 1.3.0
+# Version: 1.5.0
 # Author : pt-zenity
 # Repo   : https://github.com/pt-zenity/renginefix
 # =============================================================================
@@ -26,6 +26,7 @@ PROXY_CONTAINER="${PROXY_CONTAINER:-rengine-proxy-1}"
 WEB_CONTAINER="${WEB_CONTAINER:-rengine-web-1}"
 PATCH_CSS_SOURCE="$(dirname "$0")/web/static/custom/custom.css"
 PATCH_TOPBAR_SOURCE="$(dirname "$0")/web/templates/base/_items/top_bar.html"
+PATCH_TOOL_SOURCE="$(dirname "$0")/web/templates/scanEngine/settings/tool.html"
 TIMESTAMP=$(date +%Y%m%d_%H%M%S)
 
 # ── Banner ───────────────────────────────────────────────────────────────────
@@ -40,7 +41,7 @@ cat << 'EOF'
 EOF
 echo -e "${NC}"
 echo -e "  ${BOLD}reNgine-ng Custom Dark Theme Patch Installer${NC}"
-echo -e "  Version: ${GREEN}1.3.0${NC} | Repo: ${CYAN}github.com/pt-zenity/renginefix${NC}"
+echo -e "  Version: ${GREEN}1.5.0${NC} | Repo: ${CYAN}github.com/pt-zenity/renginefix${NC}"
 echo ""
 
 # ── Pre-flight checks ────────────────────────────────────────────────────────
@@ -119,6 +120,7 @@ backup_file() {
 backup_file "${RENGINE_STATIC}/custom/custom.css"
 backup_file "${RENGINE_STATICFILES}/custom/custom.css"
 backup_file "${RENGINE_TEMPLATES}/base/_items/top_bar.html"
+backup_file "${RENGINE_WEB_DIR}/scanEngine/templates/scanEngine/settings/tool.html"
 
 # ── Apply CSS Patch ──────────────────────────────────────────────────────────
 header "Apply Patch CSS"
@@ -162,6 +164,53 @@ if [[ "$SKIP_TEMPLATE" == "false" ]]; then
     fi
 else
     info "Template patch dilewati (file source tidak ditemukan)"
+fi
+
+# ── Apply tool.html Patch (v1.5.0 — Nuclei Invalid Path fix) ─────────────────
+header "Apply Patch tool.html (Nuclei Patterns Fix)"
+
+TOOL_HTML_TARGET="${RENGINE_WEB_DIR}/scanEngine/templates/scanEngine/settings/tool.html"
+SKIP_TOOL=false
+
+if [[ ! -f "$PATCH_TOOL_SOURCE" ]]; then
+    warn "Patch tool.html source tidak ditemukan. Menggunakan Python inline fix."
+    SKIP_TOOL=true
+fi
+
+if [[ "$SKIP_TOOL" == "false" ]]; then
+    if [[ -f "$TOOL_HTML_TARGET" ]]; then
+        cp "$PATCH_TOOL_SOURCE" "$TOOL_HTML_TARGET"
+        log "tool.html disalin: file.4 fix applied"
+    else
+        warn "tool.html target tidak ditemukan: ${TOOL_HTML_TARGET}"
+    fi
+else
+    # Inline Python fix sebagai fallback
+    if [[ -f "$TOOL_HTML_TARGET" ]]; then
+        python3 -c "
+with open('$TOOL_HTML_TARGET', 'r') as f:
+    lines = f.readlines()
+for i, line in enumerate(lines):
+    if 'load_nuclei_template' in line and 'file.3' in line:
+        lines[i] = line.replace('file.3', 'file.4')
+        print(f'Fixed line {i+1}: file.3 -> file.4')
+with open('$TOOL_HTML_TARGET', 'w') as f:
+    f.writelines(lines)
+"
+        log "tool.html Python inline fix applied (file.3 → file.4)"
+    else
+        warn "tool.html tidak ditemukan, skip"
+    fi
+fi
+
+# Verifikasi fix
+if [[ -f "$TOOL_HTML_TARGET" ]]; then
+    TOOL_CHECK=$(grep -c "file\.4" "$TOOL_HTML_TARGET" 2>/dev/null || echo "0")
+    if [[ "$TOOL_CHECK" -gt 0 ]]; then
+        log "tool.html verified: file.4 fix aktif (Nuclei Patterns tidak lagi Error! Invalid Path)"
+    else
+        warn "file.4 tidak ditemukan di tool.html. Cek manual."
+    fi
 fi
 
 # ── Reload nginx ─────────────────────────────────────────────────────────────
@@ -240,6 +289,7 @@ echo -e "  ${BOLD}Langkah selanjutnya:${NC}"
 echo -e "  1. Buka browser → https://DOMAIN_KAMU/dashboard/"
 echo -e "  2. Hard refresh: ${BOLD}Ctrl+Shift+R${NC}"
 echo -e "  3. Cek tampilan di desktop dan mobile"
+echo -e "  4. Settings → Tool Settings → Nuclei → pastikan tidak ada 'Error! Invalid Path'"
 echo ""
 echo -e "  ${CYAN}Backup tersimpan dengan suffix: .bak_${TIMESTAMP}${NC}"
 echo -e "  ${CYAN}Dokumentasi: https://github.com/pt-zenity/renginefix${NC}"

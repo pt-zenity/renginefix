@@ -6,6 +6,28 @@ Format: `[version] — YYYY-MM-DD — Summary`
 
 ---
 
+## [1.5.0] — 2026-07-05 — Fix Nuclei Patterns "Invalid Path" Error
+
+### Fixed
+- **Nuclei Patterns page** — Settings → Tool Settings → Nuclei no longer shows "Error! Invalid Path"
+- **Root cause**: Django template `tool.html` line 105 used `{{ file.3 }}` (off-by-one index)
+  - Path `/home/rengine/nuclei-templates/ssrf_nagli.yaml` splits to 5 parts (index 0–4)
+  - `file.3` = `"nuclei-templates"` (directory name) → API call with wrong name → "Invalid Path!"
+  - `file.4` = `"ssrf_nagli.yaml"` (actual filename) → API resolves correctly ✓
+- **Fix**: Changed `{{ file.3 }}` → `{{ file.4 }}` in `tool.html` line 105 (both onclick and display text)
+
+### Affected File
+| File | Change |
+|------|--------|
+| `scanEngine/templates/scanEngine/settings/tool.html` | Line 105: `file.3` → `file.4` |
+
+### Verification
+- All 6 custom templates now display and open correctly:
+  `ssrf_nagli.yaml`, `crlf-param-injection.yaml`, `CVE-2025-54068.yaml`,
+  `header_sqli.yaml`, `cache-poisoning.yaml`, `command-injection.yaml`
+
+---
+
 ## [1.4.0] — 2026-07-05 — Nuclei Templates Update to v10.4.5
 
 ### Updated

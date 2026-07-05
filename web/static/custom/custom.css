@@ -1,6 +1,6 @@
 /* =======================================================================
    reNgine-ng — Custom Dark Theme
-   @version    : 3.0.1-patch.1.3.0
+   @version    : 3.0.1-patch.1.5.0
    @base       : v3.0.0 Design System (yogeshojha/rengine)
    @maintainer : pt-zenity (github.com/pt-zenity/renginefix)
    @updated    : 2026-07-05
@@ -9,6 +9,8 @@
      v1.1.0 (2026-07-05) — Fix badges, charts, progress bars not displaying
      v1.2.0 (2026-07-05) — Fix mobile navigation dark theme
      v1.3.0 (2026-07-05) — Fix hamburger menu button visibility
+     v1.4.0 (2026-07-05) — Update nuclei-templates v10.3.8 → v10.4.5
+     v1.5.0 (2026-07-05) — Fix Nuclei Patterns "Invalid Path" (file.3→file.4)
    Mode  : Dark-first (class="dark" on <html>)
    ======================================================================= */
 
