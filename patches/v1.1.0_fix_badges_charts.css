@@ -1,0 +1,206 @@
+/* =======================================================================
+   reNgine-ng 3.0.0 — FIX PATCH v2
+   Fixes: bg-* badges invisible text, progress-bar color conflict,
+          badge base override, btn-soft hover/active states,
+          scan result visibility issues
+   ======================================================================= */
+
+/* ── FIX 1: .badge base — remove background/color so soft variants win ── */
+/* Override the base .badge rule (line 130) that had background: var(--secondary) */
+.badge {
+  background: revert !important;
+  color: revert !important;
+  border: revert !important;
+}
+/* Re-apply base structural styles WITHOUT color overrides */
+.badge {
+  display: inline-flex !important;
+  align-items: center !important;
+  border-radius: 4px !important;
+  font-family: 'DM Sans', sans-serif !important;
+  font-size: 11px !important;
+  font-weight: 500 !important;
+  line-height: 1.2 !important;
+  padding: 3px 8px !important;
+  white-space: nowrap !important;
+  vertical-align: middle !important;
+}
+
+/* ── FIX 2: badge-soft-* — force win over base .badge ──────────────────── */
+.badge-soft-primary, span.badge-soft-primary,
+.badge.badge-soft-primary {
+  background: rgba(109,142,240,.15) !important;
+  color: #6d8ef0 !important;
+  border: 1px solid rgba(109,142,240,.3) !important;
+}
+.badge-soft-info, span.badge-soft-info,
+.badge.badge-soft-info {
+  background: rgba(96,165,250,.15) !important;
+  color: #60a5fa !important;
+  border: 1px solid rgba(96,165,250,.3) !important;
+}
+.badge-soft-success, span.badge-soft-success,
+.badge.badge-soft-success {
+  background: rgba(74,222,128,.15) !important;
+  color: #4ade80 !important;
+  border: 1px solid rgba(74,222,128,.3) !important;
+}
+.badge-soft-danger, span.badge-soft-danger,
+.badge.badge-soft-danger {
+  background: rgba(248,113,113,.15) !important;
+  color: #f87171 !important;
+  border: 1px solid rgba(248,113,113,.3) !important;
+}
+.badge-soft-warning, span.badge-soft-warning,
+.badge.badge-soft-warning {
+  background: rgba(251,191,36,.15) !important;
+  color: #fbbf24 !important;
+  border: 1px solid rgba(251,191,36,.3) !important;
+}
+.badge-soft-secondary, span.badge-soft-secondary,
+.badge.badge-soft-secondary {
+  background: rgba(255,255,255,.08) !important;
+  color: #a1a1a1 !important;
+  border: 1px solid rgba(255,255,255,.12) !important;
+}
+.badge-soft-dark, span.badge-soft-dark,
+.badge.badge-soft-dark {
+  background: rgba(255,255,255,.06) !important;
+  color: #d4d4d4 !important;
+  border: 1px solid rgba(255,255,255,.1) !important;
+}
+.badge-soft-light, span.badge-soft-light,
+.badge.badge-soft-light {
+  background: rgba(255,255,255,.08) !important;
+  color: #e5e5e5 !important;
+  border: 1px solid rgba(255,255,255,.12) !important;
+}
+
+/* ── FIX 3: bg-* solid badges — add missing color (text visibility) ────── */
+/* These are used as badge-pills in scan history summary column */
+.badge.bg-primary   { background: #6d8ef0 !important; color: #fff !important; border: none !important; }
+.badge.bg-success   { background: #22c55e !important; color: #fff !important; border: none !important; }
+.badge.bg-danger    { background: #f87171 !important; color: #fff !important; border: none !important; }
+.badge.bg-warning   { background: #fbbf24 !important; color: #111 !important; border: none !important; }
+.badge.bg-info      { background: #60a5fa !important; color: #fff !important; border: none !important; }
+.badge.bg-secondary { background: #444 !important;    color: #e5e5e5 !important; border: none !important; }
+.badge.bg-dark      { background: #2c2c2c !important; color: #e5e5e5 !important; border: none !important; }
+.badge.bg-light     { background: rgba(255,255,255,.1) !important; color: #e5e5e5 !important; border: none !important; }
+
+/* badge-pills fix — rounded */
+.badge-pills { border-radius: 9999px !important; }
+.badge.rounded-pill { border-radius: 9999px !important; }
+
+/* ── FIX 4: .bg-* utility without .badge — add text color ───────────────── */
+/* When used standalone (not as badge) — keep bg but ensure text contrast */
+.bg-info    { background: rgba(96,165,250,.2)  !important; color: #60a5fa !important; }
+.bg-warning { background: rgba(251,191,36,.2)  !important; color: #fbbf24 !important; }
+.bg-danger  { background: rgba(248,113,113,.2) !important; color: #f87171 !important; }
+.bg-success { background: rgba(74,222,128,.2)  !important; color: #4ade80 !important; }
+.bg-primary { background: rgba(109,142,240,.2) !important; color: #6d8ef0 !important; }
+
+/* ── FIX 5: progress-bar color conflict ─────────────────────────────────── */
+/* Override base .progress-bar { background: var(--primary) } */
+/* Progress bars in scan history use bg-* classes */
+.progress-bar { background: var(--primary) !important; }
+.progress-bar.bg-success,
+.progress .progress-bar.bg-success { background: #4ade80 !important; }
+.progress-bar.bg-danger,
+.progress .progress-bar.bg-danger  { background: #f87171 !important; }
+.progress-bar.bg-warning,
+.progress .progress-bar.bg-warning { background: #fbbf24 !important; }
+.progress-bar.bg-info,
+.progress .progress-bar.bg-info    { background: #60a5fa !important; }
+.progress-bar.bg-primary,
+.progress .progress-bar.bg-primary { background: #6d8ef0 !important; }
+
+/* ── FIX 6: btn-soft — hover + disabled states ───────────────────────────── */
+.btn-soft-primary  { background: rgba(109,142,240,.15) !important; border: 1px solid rgba(109,142,240,.3) !important; color: #6d8ef0 !important; }
+.btn-soft-success  { background: rgba(74,222,128,.15)  !important; border: 1px solid rgba(74,222,128,.3) !important;  color: #4ade80 !important; }
+.btn-soft-danger   { background: rgba(248,113,113,.15) !important; border: 1px solid rgba(248,113,113,.3) !important; color: #f87171 !important; }
+.btn-soft-warning  { background: rgba(251,191,36,.15)  !important; border: 1px solid rgba(251,191,36,.3) !important;  color: #fbbf24 !important; }
+.btn-soft-info     { background: rgba(96,165,250,.15)  !important; border: 1px solid rgba(96,165,250,.3) !important;  color: #60a5fa !important; }
+.btn-soft-secondary{ background: rgba(255,255,255,.06) !important; border: 1px solid rgba(255,255,255,.1) !important;  color: #a1a1a1 !important; }
+.btn-soft-primary:hover  { background: rgba(109,142,240,.28) !important; color: #8aabf3 !important; }
+.btn-soft-success:hover  { background: rgba(74,222,128,.28)  !important; color: #6de89a !important; }
+.btn-soft-danger:hover   { background: rgba(248,113,113,.28) !important; color: #fa9090 !important; }
+.btn-soft-warning:hover  { background: rgba(251,191,36,.28)  !important; color: #fdd05c !important; }
+.btn-soft-info:hover     { background: rgba(96,165,250,.28)  !important; color: #7fbcfb !important; }
+
+/* ── FIX 7: ApexCharts — force dark theme ───────────────────────────────── */
+.apexcharts-text tspan,
+.apexcharts-xaxis-label tspan,
+.apexcharts-yaxis-label tspan,
+.apexcharts-legend-text,
+.apexcharts-datalabels text,
+.apexcharts-pie-label {
+  fill: #a1a1a1 !important;
+  color: #a1a1a1 !important;
+  font-family: 'DM Sans', sans-serif !important;
+  font-size: 12px !important;
+}
+.apexcharts-canvas,
+.apexcharts-svg,
+.apexcharts-inner {
+  background: transparent !important;
+}
+.apexcharts-tooltip {
+  background: #2a2a2a !important;
+  border: 1px solid #3a3a3a !important;
+  color: #fafafa !important;
+}
+.apexcharts-tooltip-title {
+  background: #333 !important;
+  border-bottom: 1px solid #3a3a3a !important;
+  color: #fafafa !important;
+}
+.apexcharts-tooltip-text-y-value,
+.apexcharts-tooltip-text-y-label {
+  color: #fafafa !important;
+}
+.apexcharts-menu {
+  background: #2a2a2a !important;
+  border: 1px solid #3a3a3a !important;
+  color: #fafafa !important;
+}
+.apexcharts-menu-item:hover {
+  background: #3a3a3a !important;
+}
+/* Grid lines */
+.apexcharts-gridline { stroke: rgba(255,255,255,.06) !important; }
+.apexcharts-grid-row { fill: transparent !important; }
+
+/* ── FIX 8: h2 counter numbers in dashboard (text-primary) ──────────────── */
+h2.text-primary, h2.text-danger {
+  font-family: 'DM Sans', sans-serif !important;
+  font-weight: 700 !important;
+}
+
+/* ── FIX 9: Table visibility in dark mode ────────────────────────────────── */
+.table { color: var(--foreground) !important; }
+.table thead th { color: var(--muted-foreground) !important; border-bottom: 1px solid var(--border) !important; }
+.table tbody td { color: var(--foreground) !important; border-bottom: 1px solid var(--border) !important; }
+.table-hover tbody tr:hover { background: rgba(255,255,255,.04) !important; }
+.table-borderless td, .table-borderless th { border: none !important; }
+
+/* ── FIX 10: DataTable wrapper dark styling ──────────────────────────────── */
+div.dataTables_wrapper { color: var(--foreground) !important; }
+.dt--top-section, .dt--bottom-section { color: var(--foreground) !important; }
+div.dataTables_info { color: var(--muted-foreground) !important; }
+div.dataTables_length label, div.dataTables_filter label { color: var(--muted-foreground) !important; }
+div.dataTables_paginate .paginate_button { color: var(--foreground) !important; }
+div.dataTables_paginate .paginate_button.current { background: rgba(109,142,240,.2) !important; color: #6d8ef0 !important; border-radius: 4px; }
+
+/* ── FIX 11: card body text visibility ──────────────────────────────────── */
+.card-body h4, .card-body h2, .card-body h1, .card-body h3 {
+  color: var(--foreground) !important;
+}
+.card-body p, .card-body span:not([class*="badge"]):not([class*="text-"]) {
+  color: var(--foreground) !important;
+}
+
+/* ── FIX 12: counterup numbers ───────────────────────────────────────────── */
+[data-plugin="counterup"] {
+  color: inherit !important;
+  font-weight: 700 !important;
+}

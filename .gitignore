@@ -1,0 +1,25 @@
+# Dependencies
+node_modules/
+*.log
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Editor
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Backup files
+*.bak_*
+*.bak
+
+# Env
+.env
+.env.local
+
+# staticfiles (served by nginx, same as static/custom/)
+# Uncomment below to exclude staticfiles from repo (optional)
+# web/staticfiles/

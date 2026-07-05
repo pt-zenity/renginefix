@@ -1,0 +1,7 @@
+# reNgine-ng Custom Patch Version Tracker
+# Format: vMAJOR.MINOR.PATCH — DATE — DESCRIPTION
+
+v1.0.0 — 2026-07-05 — Initial dark theme design system (1048 lines)
+v1.1.0 — 2026-07-05 — Fix: scan results badges & charts not displaying (patch rengine30_fix2)
+v1.2.0 — 2026-07-05 — Fix: mobile navigation dark theme (patch rengine30_mobile_fix)
+v1.3.0 — 2026-07-05 — Fix: hamburger menu button invisible background (patch hamburger_fix)

@@ -1,0 +1,203 @@
+
+/* ============================================================
+   MOBILE DARK THEME FIX — rengine30_mobile_fix.css
+   Target: #mobileNavMenu .mobile-nav-menu and all children
+   Design tokens: --sidebar: #1f1f1f, --sidebar-foreground: #fafafa
+                  --sidebar-primary: #6d8ef0, --border: #2c2c2c
+   ============================================================ */
+
+/* ── 1. Mobile nav drawer container ─────────────────────────── */
+#mobileNavMenu {
+  background: #1a1a1a !important;
+}
+
+.mobile-nav-menu {
+  background: #1a1a1a !important;
+  padding: 8px 0 !important;
+}
+
+/* ── 2. All nav-link items in mobile menu ──────────────────── */
+.mobile-nav-menu .nav-item {
+  border-bottom: 1px solid rgba(255,255,255,.05) !important;
+}
+
+.mobile-nav-menu .nav-link {
+  color: #d4d4d4 !important;
+  background: transparent !important;
+  padding: 10px 18px !important;
+  font-size: 13.5px !important;
+  display: flex !important;
+  align-items: center !important;
+  gap: 8px !important;
+  transition: background .15s ease, color .15s ease !important;
+}
+
+.mobile-nav-menu .nav-link:hover {
+  color: #fafafa !important;
+  background: rgba(109,142,240,.12) !important;
+}
+
+.mobile-nav-menu .nav-link i {
+  color: #6d8ef0 !important;
+  font-size: 14px !important;
+  width: 18px !important;
+  text-align: center !important;
+  flex-shrink: 0 !important;
+}
+
+/* ── 3. Active nav link ────────────────────────────────────── */
+.mobile-nav-menu .nav-link.active,
+.mobile-nav-menu a.nav-link.active {
+  color: #6d8ef0 !important;
+  background: rgba(109,142,240,.15) !important;
+  font-weight: 600 !important;
+}
+
+/* ── 4. Submenu header (section divider like "Scan History ›") */
+.mobile-nav-menu .mobile-submenu-header {
+  color: #a1a1a1 !important;
+  background: rgba(255,255,255,.04) !important;
+  font-size: 12px !important;
+  font-weight: 600 !important;
+  letter-spacing: .05em !important;
+  text-transform: uppercase !important;
+  cursor: pointer !important;
+  display: flex !important;
+  justify-content: space-between !important;
+  align-items: center !important;
+  padding: 9px 18px !important;
+  border-top: 1px solid rgba(255,255,255,.06) !important;
+}
+
+.mobile-nav-menu .mobile-submenu-header:hover {
+  background: rgba(255,255,255,.08) !important;
+  color: #d4d4d4 !important;
+}
+
+.mobile-nav-menu .mobile-submenu-header i,
+.mobile-nav-menu .mobile-submenu-header .mobile-submenu-arrow {
+  color: #6d8ef0 !important;
+  font-size: 13px !important;
+}
+
+/* ── 5. Submenu body ───────────────────────────────────────── */
+.mobile-nav-menu .mobile-submenu {
+  background: rgba(0,0,0,.25) !important;
+  border-left: 2px solid rgba(109,142,240,.3) !important;
+  margin-left: 12px !important;
+}
+
+.mobile-nav-menu .mobile-submenu a,
+.mobile-nav-menu .mobile-submenu .dropdown-item {
+  color: #b8b8b8 !important;
+  background: transparent !important;
+  padding: 8px 18px 8px 16px !important;
+  font-size: 13px !important;
+  display: block !important;
+  transition: color .15s, background .15s !important;
+}
+
+.mobile-nav-menu .mobile-submenu a:hover,
+.mobile-nav-menu .mobile-submenu .dropdown-item:hover {
+  color: #fafafa !important;
+  background: rgba(109,142,240,.1) !important;
+}
+
+.mobile-nav-menu .mobile-submenu a.active,
+.mobile-nav-menu .mobile-submenu .dropdown-item.active {
+  color: #6d8ef0 !important;
+  background: rgba(109,142,240,.18) !important;
+  font-weight: 600 !important;
+}
+
+/* ── 6. Switch Project submenu (mobile-projects-submenu) ───── */
+.mobile-nav-menu .mobile-projects-submenu {
+  background: rgba(0,0,0,.3) !important;
+  border-left: 2px solid rgba(109,142,240,.25) !important;
+  margin-left: 12px !important;
+}
+
+.mobile-nav-menu .mobile-projects-submenu .dropdown-item {
+  color: #b8b8b8 !important;
+  background: transparent !important;
+  padding: 9px 18px !important;
+  font-size: 13px !important;
+}
+
+.mobile-nav-menu .mobile-projects-submenu .dropdown-item:hover {
+  color: #fafafa !important;
+  background: rgba(109,142,240,.12) !important;
+}
+
+.mobile-nav-menu .mobile-projects-submenu .dropdown-item.active {
+  color: #6d8ef0 !important;
+  background: rgba(109,142,240,.2) !important;
+  font-weight: 600 !important;
+}
+
+/* ── 7. Dropdown divider inside mobile menu ────────────────── */
+.mobile-nav-menu .dropdown-divider {
+  border-color: rgba(255,255,255,.08) !important;
+  margin: 4px 0 !important;
+}
+
+/* ── 8. Project name pills (HUNT / tools) at bottom of sidebar */
+/* These appear as plain text links after the mobile menu closes */
+/* Target: any standalone project name link below #mobileNavMenu */
+.mobile-nav-menu + * a[href*="/set_current_project/"],
+.mobile-nav-menu a[href*="/set_current_project/"] {
+  color: #6d8ef0 !important;
+  font-weight: 600 !important;
+}
+
+/* ── 9. Page heading "HUNT" (h4/h5 in page body, not nav) ──── */
+/* .page-title-box or breadcrumb project name */
+.page-title-box h4,
+.page-title-box .page-title {
+  color: #fafafa !important;
+}
+
+/* ── 10. Topbar on mobile — ensure dark bg ─────────────────── */
+@media (max-width: 991px) {
+  .navbar-custom,
+  #topnav {
+    background: #1f1f1f !important;
+  }
+
+  /* Collapse button color */
+  .navbar-custom .button-menu-mobile,
+  .navbar-toggle .lines,
+  .navbar-toggle .lines::before,
+  .navbar-toggle .lines::after {
+    background: #d4d4d4 !important;
+  }
+
+  /* Topbar icons */
+  .navbar-custom .nav-link,
+  .topbar-menu .nav-link {
+    color: #d4d4d4 !important;
+  }
+
+  /* Search input */
+  .app-search .form-control {
+    background: rgba(255,255,255,.07) !important;
+    color: #fafafa !important;
+    border-color: rgba(255,255,255,.12) !important;
+  }
+
+  .app-search .form-control::placeholder {
+    color: #6b7280 !important;
+  }
+}
+
+/* ── 11. Fix: reNgine logo / brand text in topbar ──────────── */
+.navbar-brand,
+.navbar-brand span,
+.logo-txt {
+  color: #fafafa !important;
+}
+
+/* ── 12. Ensure mobile collapse wrapper has dark bg ────────── */
+.collapse.d-lg-none {
+  background: #1a1a1a !important;
+}
