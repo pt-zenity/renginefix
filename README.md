@@ -3,11 +3,12 @@
 <div align="center">
 
 ![reNgine-ng](https://img.shields.io/badge/reNgine--ng-v3.0.0-blue?style=for-the-badge)
-![Patch](https://img.shields.io/badge/Patch-v1.3.0-green?style=for-the-badge)
+![Patch](https://img.shields.io/badge/Patch-v1.4.0-green?style=for-the-badge)
+![Nuclei Templates](https://img.shields.io/badge/Nuclei_Templates-v10.4.5-orange?style=for-the-badge)
 ![License](https://img.shields.io/badge/License-MIT-yellow?style=for-the-badge)
 ![Status](https://img.shields.io/badge/Status-Production-brightgreen?style=for-the-badge)
 
-**Custom dark theme, mobile navigation fix, dan visual improvement untuk reNgine-ng v3.0.0**
+**Custom dark theme, mobile navigation fix, visual improvement, dan nuclei templates update untuk reNgine-ng v3.0.0**
 
 </div>
 
@@ -327,6 +328,7 @@ curl -sk https://DOMAIN_KAMU/staticfiles/custom/custom.css | head -15
 | `3.0.1-patch.1.1.0` | 2026-07-05 | Fix badges, charts, progress bars |
 | `3.0.1-patch.1.2.0` | 2026-07-05 | Fix mobile navigation dark theme |
 | `3.0.1-patch.1.3.0` | 2026-07-05 | Fix hamburger menu button |
+| `3.0.1-patch.1.4.0` | 2026-07-05 | Update nuclei-templates v10.3.8 → v10.4.5 |
 
 ---
 
@@ -562,6 +564,40 @@ Design system awal dengan 1048 baris mencakup:
 - Layout: topbar, sidebar, content
 - Components: cards, badges, buttons, forms, tables
 - Dark mode overrides untuk Bootstrap 5
+
+---
+
+## 🔍 Nuclei Templates
+
+Repo ini juga mendokumentasikan update **nuclei-templates** yang digunakan oleh reNgine-ng untuk vulnerability scanning.
+
+### Versi Saat Ini
+
+| Item | Version |
+|------|---------|
+| nuclei engine | v3.10.0 |
+| nuclei-templates | **v10.4.5** (2026-06-23) |
+| Total templates | 22,153 .yaml |
+| Ukuran | 615 MB |
+
+### Cara Update Nuclei Templates
+
+```bash
+# Masuk ke server
+ssh USER@SERVER_IP
+
+# Update templates (jalankan di dalam container)
+docker exec rengine-celery-1 nuclei -ut -ud /home/rengine/nuclei-templates
+
+# Cek versi setelah update
+docker exec rengine-celery-1 nuclei -templates-version
+```
+
+### Riwayat Update Templates
+
+| Tanggal | Versi Lama | Versi Baru | New Templates |
+|---------|-----------|-----------|---------------|
+| 2026-07-05 | v10.3.8 | **v10.4.5** | +86 |
 
 ---
 

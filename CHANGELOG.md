@@ -6,6 +6,54 @@ Format: `[version] — YYYY-MM-DD — Summary`
 
 ---
 
+## [1.4.0] — 2026-07-05 — Nuclei Templates Update to v10.4.5
+
+### Updated
+- **nuclei-templates** `v10.3.8` → **`v10.4.5`** (released 2026-06-23)
+- **86 new templates** ditambahkan termasuk CVE-2026 terbaru
+- Total templates: **22,153 .yaml files** (615 MB)
+
+### Detail
+| Item | Sebelum | Sesudah |
+|------|---------|---------|
+| nuclei-templates version | v10.3.8 | **v10.4.5** |
+| nuclei engine | v3.10.0 | v3.10.0 |
+| Total .yaml templates | ~22,153 | 22,153 (+86 new) |
+
+### Template Categories (v10.4.5)
+| Kategori | Templates |
+|----------|-----------|
+| http | 10,193 |
+| workflows | 9,834 |
+| cloud | 663 |
+| file | 447 |
+| code | 288 |
+| dast | 249 |
+| network | 277 |
+| javascript | 104 |
+| ssl | 38 |
+| dns | 30 |
+| headless | 24 |
+
+### New CVE Templates Sample
+- `CVE-2026-10795.yaml`
+- `CVE-2026-31431.yaml`
+- `CVE-2022-44727.yaml`
+- `CVE-2021-3239.yaml`
+- `CVE-2020-36884.yaml`
+- +81 more
+
+### How to Update Templates
+```bash
+# Di dalam container rengine-celery-1
+docker exec rengine-celery-1 nuclei -ut -ud /home/rengine/nuclei-templates
+```
+
+### Files Changed
+- `/home/rengine/nuclei-templates/` — updated in-place (server volume)
+
+---
+
 ## [1.3.0] — 2026-07-05 — Hamburger Menu Button Fix
 
 ### Fixed
